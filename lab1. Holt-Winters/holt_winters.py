@@ -115,5 +115,5 @@ class HoltWinters:
             self.Trend.append(trend)
             self.Season.append(seasonals[i % self.slen])
 
-        return [l+b+s for l, b, s in zip(self.Smooth, self.Trend, self.Season)]
+        # return [l+b+s for l, b, s in zip(self.Smooth, self.Trend, self.Season)]
         return self.result
