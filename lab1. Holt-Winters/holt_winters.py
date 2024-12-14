@@ -47,7 +47,7 @@ class HoltWinters:
             seasonals[i] = sum_of_vals_over_avg/n_seasons
         return seasonals
 
-    def triple_exponential_smoothing(self):
+    def triple_exponential_smoothing(self, a0, b0):
         self.result = []
         self.Smooth = []
         self.Season = []
@@ -60,8 +60,10 @@ class HoltWinters:
 
         for i in range(len(self.series)+self.n_preds):
             if i == 0:  # инициализируем значения компонент
-                smooth = self.series[0]
-                trend = self.initial_trend()
+                smooth = b0#self.series[0]
+                trend = a0#self.initial_trend()
+                print(f"a0 ={trend}")
+                print(f"b0 ={smooth}")
                 self.result.append(self.series[0])
                 self.Smooth.append(smooth)
                 self.Trend.append(trend)
@@ -114,3 +116,4 @@ class HoltWinters:
             self.Season.append(seasonals[i % self.slen])
 
         return [l+b+s for l, b, s in zip(self.Smooth, self.Trend, self.Season)]
+        return self.result
