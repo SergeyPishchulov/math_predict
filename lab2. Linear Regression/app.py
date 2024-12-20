@@ -119,5 +119,14 @@ def get_rmse_on_test(res):
     return rmse(y_test, pred)
 
 
-def get_predict(res):
-    return res.predict(x_test)
+def get_predict(res, extra_input_data_path, save_to=None):
+    df = pd.read_csv(extra_input_data_path)
+    df = df.drop('Y2', axis=1)
+    df["y"] = df["Y1"]
+    y = df.y
+    df = df.drop('Y1', axis=1)
+    x = df.drop('y', axis=1)
+    pred = res.predict(x)
+    if save_to is not None:
+        pred.to_csv(save_to)
+    return pred
